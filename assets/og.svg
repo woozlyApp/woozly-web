@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#131118"/>
+  <circle cx="600" cy="80" r="420" fill="#8B5CF6" opacity="0.10"/>
+
+  <!-- Leaf mark -->
+  <g transform="translate(88 96) scale(3.4)" fill="none" stroke="#A78BFA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+  </g>
+
+  <text x="88" y="330" font-family="Poppins, Helvetica, Arial, sans-serif" font-weight="700" font-size="76" fill="#F2F0F7" letter-spacing="-1.5">Meet the people</text>
+  <text x="88" y="420" font-family="Poppins, Helvetica, Arial, sans-serif" font-weight="700" font-size="76" fill="#F2F0F7" letter-spacing="-1.5">in the room.</text>
+  <text x="88" y="510" font-family="Helvetica, Arial, sans-serif" font-size="30" fill="#918AA3">woozly.app · the map of who's around</text>
+</svg>
