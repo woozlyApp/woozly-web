@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { APP_STORE_URL } from "@/lib/site";
+import Link from "next/link";
 import { PEOPLE_MATRIX, PLACE_MATRIX } from "@/lib/woozly-features";
 
 type Mode = "people" | "place";
@@ -101,9 +101,9 @@ export function Pricing() {
             <div className="mt-8">
               <MatrixTable rows={mode === "people" ? PEOPLE_MATRIX : PLACE_MATRIX} />
             </div>
-            <a href={APP_STORE_URL} className="mt-8 block rounded-xl border border-line-strong py-3.5 text-center text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent">
-              Download free
-            </a>
+            <Link href="/#waitlist" className="mt-8 block rounded-xl border border-line-strong py-3.5 text-center text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent">
+              Join the waitlist
+            </Link>
           </div>
 
           {/* Premium */}
@@ -123,9 +123,9 @@ export function Pricing() {
             <div className="mt-8">
               <MatrixTable rows={mode === "people" ? PEOPLE_MATRIX : PLACE_MATRIX} />
             </div>
-            <a href={APP_STORE_URL} className="mt-8 block rounded-xl bg-accent py-3.5 text-center text-sm font-semibold text-white transition-all hover:bg-accent-deep hover:shadow-[0_4px_14px_oklch(40.8%_0.228_293/0.3)]">
-              Start Premium
-            </a>
+            <Link href="/#waitlist" className="mt-8 block rounded-xl bg-accent py-3.5 text-center text-sm font-semibold text-white transition-all hover:bg-accent-deep hover:shadow-[0_4px_14px_oklch(40.8%_0.228_293/0.3)]">
+              Join the waitlist
+            </Link>
           </div>
         </div>
       </div>

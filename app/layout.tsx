@@ -57,7 +57,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${figtree.variable} ${poppins.variable}`}>
+    <html lang="en" className={`${figtree.variable} ${poppins.variable} scroll-smooth`}>
       <body>{children}</body>
     </html>
   );

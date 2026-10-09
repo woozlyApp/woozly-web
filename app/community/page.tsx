@@ -100,7 +100,7 @@ export default function CommunityPage() {
           <p>
             Use the in-app report and block tools immediately. If you feel in immediate danger,
             contact local emergency services first. Then report to us at{" "}
-            <PH>[SAFETY_EMAIL — e.g. safety@woozly.app]</PH>.
+            <PH>[SAFETY_EMAIL — e.g. safety@woozlyai.app]</PH>.
           </p>
         </Sub>
       </Sec>

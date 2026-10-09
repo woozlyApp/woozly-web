@@ -1,5 +1,5 @@
-import { APP_STORE_URL } from "@/lib/site";
 import { DraggableNote } from "./DraggableNote";
+import { WaitlistForm } from "./WaitlistForm";
 
 function PlaceCard() {
   return (
@@ -151,19 +151,16 @@ export function Hero() {
             drop a plant and match when you&apos;re ready.
           </p>
 
-          <div className="anim-rise-2 mt-8 flex flex-wrap items-center gap-3">
-            <a
-              href={APP_STORE_URL}
-              className="rounded-full bg-accent px-7 py-3.5 font-semibold text-white transition-all hover:bg-accent-deep hover:shadow-[0_4px_16px_oklch(40.8%_0.228_293/0.3)]"
-            >
-              Download on iOS
-            </a>
-            <a
-              href="#intention"
-              className="rounded-full px-5 py-3.5 font-medium text-body transition-colors hover:text-ink"
-            >
-              See how it works
-            </a>
+          <div id="waitlist" className="anim-rise-2 mt-8 scroll-mt-24">
+            <WaitlistForm />
+            <div className="mt-3.5 text-sm text-body">
+              <a
+                href="#intention"
+                className="transition-colors hover:text-ink"
+              >
+                See how it works
+              </a>
+            </div>
           </div>
 
           {/* Social proof chips */}

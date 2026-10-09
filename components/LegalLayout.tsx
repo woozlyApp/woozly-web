@@ -1,6 +1,8 @@
+import Link from "next/link";
 import { Nav } from "./Nav";
 import { Footer } from "./Footer";
 import { LeafMark } from "./LeafMark";
+import { APP_LAUNCHED } from "@/lib/site";
 
 export interface TocItem { id: string; label: string; }
 
@@ -13,11 +15,13 @@ interface Props {
   children: React.ReactNode;
 }
 
-const LEGAL_LINKS = [
-  { href: "/terms",     label: "Terms of Service" },
-  { href: "/privacy",   label: "Privacy Policy"   },
-  { href: "/community", label: "Community Guidelines" },
-];
+const LEGAL_LINKS = APP_LAUNCHED
+  ? [
+      { href: "/terms",     label: "Terms of Service" },
+      { href: "/privacy",   label: "Privacy Policy"   },
+      { href: "/community", label: "Community Guidelines" },
+    ]
+  : [{ href: "/privacy", label: "Privacy Policy" }];
 
 export function PH({ children }: { children: string }) {
   return (
@@ -130,9 +134,9 @@ export function LegalLayout({ title, description, lastUpdated, notice, toc, chil
           <p className="mb-3 text-xs font-semibold uppercase tracking-[0.07em] text-muted">Legal</p>
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
             {LEGAL_LINKS.map((l) => (
-              <a key={l.href} href={l.href} className="text-body transition-colors hover:text-accent">
+              <Link key={l.href} href={l.href} className="text-body transition-colors hover:text-accent">
                 {l.label}
-              </a>
+              </Link>
             ))}
           </div>
         </div>
