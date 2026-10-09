@@ -5,7 +5,23 @@ import Link from "next/link";
 import { PEOPLE_MATRIX, PLACE_MATRIX } from "@/lib/woozly-features";
 
 type Mode = "people" | "place";
-type Plan = "weekly" | "monthly";
+
+interface PlanCard {
+  id: string;
+  name: string;
+  badge?: string;
+  price: string;
+  per?: string;
+  note: string;
+  highlight: boolean;
+  best?: boolean;
+}
+
+const PLAN_CARDS: PlanCard[] = [
+  { id: "free",    name: "Free",    price: "$0",     note: "For showing up with intention", highlight: false },
+  { id: "weekly",  name: "Premium", badge: "Aura", price: "$4.99",  per: "/week",  note: "Billed weekly · cancel anytime",  highlight: true },
+  { id: "monthly", name: "Premium", badge: "Aura", price: "$14.99", per: "/month", note: "Billed monthly · cancel anytime", highlight: true, best: true },
+];
 
 function Cell({ val }: { val: string | boolean }) {
   if (val === true)  return <span className="text-accent font-semibold">✓</span>;
@@ -38,10 +54,6 @@ function MatrixTable({ rows }: { rows: readonly { feature: string; free: string 
 
 export function Pricing() {
   const [mode, setMode] = useState<Mode>("people");
-  const [plan, setPlan] = useState<Plan>("monthly");
-
-  const price = plan === "weekly" ? "$4.99" : "$14.99";
-  const per   = plan === "weekly" ? "per week" : "per month";
 
   return (
     <section id="pricing" className="border-t border-line">
@@ -51,31 +63,55 @@ export function Pricing() {
         </h2>
         <p className="mt-4 max-w-[52ch] leading-[1.65] text-body">
           Joining, dropping plants, swiping, and chatting cost nothing. Premium
-          widens your radius and unlocks the full feature set.
+          widens your radius and unlocks the full feature set — go weekly or monthly.
         </p>
 
-        {/* Plan toggle (weekly / monthly) */}
-        <div className="mt-10 flex items-center gap-3">
-          <span className="text-sm text-muted">Premium billing:</span>
-          <div className="flex rounded-full border border-line bg-surface p-0.5">
-            {(["weekly", "monthly"] as Plan[]).map((p) => (
-              <button
-                key={p}
-                onClick={() => setPlan(p)}
-                className="rounded-full px-4 py-1.5 text-sm font-medium capitalize transition-all"
-                style={plan === p ? { background: "var(--accent)", color: "white" } : { color: "var(--body)" }}
+        {/* Plan cards */}
+        <div className="mt-10 grid gap-6 sm:grid-cols-3">
+          {PLAN_CARDS.map((p) => (
+            <div
+              key={p.id}
+              className="flex flex-col rounded-2xl bg-surface p-7"
+              style={
+                p.highlight
+                  ? { boxShadow: "0 2px 6px oklch(0% 0 0 / 0.05), 0 10px 28px oklch(40.8% 0.228 293 / 0.1)", outline: "1.5px solid oklch(40.8% 0.228 293 / 0.3)" }
+                  : { boxShadow: "0 2px 6px oklch(0% 0 0 / 0.05), 0 10px 28px oklch(0% 0 0 / 0.06)" }
+              }
+            >
+              <div className="flex items-center justify-between">
+                <h3 className="font-display text-lg font-semibold text-ink">{p.name}</h3>
+                {p.badge && (
+                  <span className="rounded-full px-2.5 py-1 text-[11px] font-semibold text-accent" style={{ background: "var(--accent-pale)" }}>
+                    {p.badge}
+                  </span>
+                )}
+                {p.best && (
+                  <span className="rounded-full bg-sage-light px-2.5 py-1 text-[11px] font-semibold text-sage">Best value</span>
+                )}
+              </div>
+
+              <p className="mt-5 font-display text-4xl font-bold tracking-[-0.03em] text-ink">
+                {p.price}
+                {p.per && <span className="ml-1 text-base font-medium text-muted">{p.per}</span>}
+              </p>
+              <p className="mt-1.5 text-xs text-muted">{p.note}</p>
+
+              <Link
+                href="/#waitlist"
+                className={
+                  p.highlight
+                    ? "mt-7 block rounded-xl bg-accent py-3 text-center text-sm font-semibold text-white transition-all hover:bg-accent-deep hover:shadow-[0_4px_14px_oklch(40.8%_0.228_293/0.3)]"
+                    : "mt-7 block rounded-xl border border-line-strong py-3 text-center text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
+                }
               >
-                {p === "weekly" ? "Weekly · $4.99" : "Monthly · $14.99"}
-              </button>
-            ))}
-          </div>
-          {plan === "monthly" && (
-            <span className="rounded-full bg-sage-light px-2.5 py-1 text-[11px] font-semibold text-sage">Best value</span>
-          )}
+                Join the waitlist
+              </Link>
+            </div>
+          ))}
         </div>
 
         {/* Mode toggle (people / place) */}
-        <div className="mt-8 flex gap-2">
+        <div className="mt-14 flex gap-2">
           {(["people", "place"] as Mode[]).map((m) => (
             <button
               key={m}
@@ -91,42 +127,12 @@ export function Pricing() {
           ))}
         </div>
 
-        {/* Price cards */}
-        <div className="mt-10 grid gap-6 lg:grid-cols-2">
-          {/* Free */}
-          <div className="rounded-2xl bg-surface p-8" style={{ boxShadow: "0 2px 6px oklch(0% 0 0 / 0.05), 0 10px 28px oklch(0% 0 0 / 0.06)" }}>
-            <h3 className="font-display text-xl font-semibold text-ink">Free</h3>
-            <p className="mt-1 text-sm text-muted">For showing up with intention</p>
-            <p className="mt-6 font-display text-4xl font-bold tracking-[-0.03em] text-ink">$0</p>
-            <div className="mt-8">
-              <MatrixTable rows={mode === "people" ? PEOPLE_MATRIX : PLACE_MATRIX} />
-            </div>
-            <Link href="/#waitlist" className="mt-8 block rounded-xl border border-line-strong py-3.5 text-center text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent">
-              Join the waitlist
-            </Link>
-          </div>
-
-          {/* Premium */}
-          <div className="rounded-2xl bg-surface p-8" style={{ boxShadow: "0 2px 6px oklch(0% 0 0 / 0.05), 0 10px 28px oklch(40.8% 0.228 293 / 0.1)", outline: "1.5px solid oklch(40.8% 0.228 293 / 0.3)" }}>
-            <div className="flex items-center justify-between">
-              <h3 className="font-display text-xl font-semibold text-ink">Premium</h3>
-              <span className="rounded-full px-3 py-1 text-xs font-semibold text-accent" style={{ background: "var(--accent-pale)" }}>Aura</span>
-            </div>
-            <p className="mt-1 text-sm text-muted">For being easy to find</p>
-            <p className="mt-6 font-display text-4xl font-bold tracking-[-0.03em] text-ink">
-              {price}
-              <span className="ml-1.5 text-base font-medium text-muted">{per}</span>
-            </p>
-            <p className="mt-1 text-xs text-muted">
-              {plan === "weekly" ? "Billed weekly · cancel anytime" : "Billed monthly · cancel anytime"}
-            </p>
-            <div className="mt-8">
-              <MatrixTable rows={mode === "people" ? PEOPLE_MATRIX : PLACE_MATRIX} />
-            </div>
-            <Link href="/#waitlist" className="mt-8 block rounded-xl bg-accent py-3.5 text-center text-sm font-semibold text-white transition-all hover:bg-accent-deep hover:shadow-[0_4px_14px_oklch(40.8%_0.228_293/0.3)]">
-              Join the waitlist
-            </Link>
-          </div>
+        {/* Feature matrix */}
+        <div className="mt-6 rounded-2xl bg-surface p-6 sm:p-8" style={{ boxShadow: "0 2px 6px oklch(0% 0 0 / 0.05)" }}>
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.07em] text-muted">
+            What&apos;s included — {mode === "people" ? "People mode" : "Place mode"}
+          </p>
+          <MatrixTable rows={mode === "people" ? PEOPLE_MATRIX : PLACE_MATRIX} />
         </div>
       </div>
     </section>
