@@ -1,17 +1,17 @@
 import { APP_STORE_URL } from "@/lib/site";
+import { DraggableNote } from "./DraggableNote";
 
 function PlaceCard() {
   return (
     <div className="relative">
-      {/* Floating sticky note — peach, behind the main card */}
-      <div
-        className="anim-float-b absolute -left-8 -top-6 z-10 w-40 rounded-xl p-3.5"
+      {/* Draggable sticky note — peach */}
+      <DraggableNote
+        rotate={-5}
+        className="absolute -left-8 -top-6 z-10 w-40 rounded-xl p-3.5"
         style={{
-          "--r": "-5deg",
           background: "var(--note-peach)",
-          transform: "rotate(-5deg)",
           boxShadow: "0 2px 8px oklch(0% 0 0 / 0.09), 0 8px 20px oklch(0% 0 0 / 0.07)",
-        } as React.CSSProperties}
+        }}
       >
         <p className="text-[11px] font-semibold leading-snug" style={{ color: "var(--note-peach-ink)" }}>
           👋 First time here. Anyone a regular?
@@ -19,13 +19,14 @@ function PlaceCard() {
         <p className="mt-1.5 text-[10px] opacity-70" style={{ color: "var(--note-peach-ink)" }}>
           placed 3 min ago
         </p>
-      </div>
+      </DraggableNote>
 
-      {/* Main place card */}
-      <div
+      {/* Main place card — draggable */}
+      <DraggableNote
+        rotate={-1.5}
+        pin={false}
         className="relative z-20 w-full max-w-[340px] overflow-hidden rounded-2xl bg-surface"
         style={{
-          transform: "rotate(-1.5deg)",
           boxShadow: "0 4px 12px oklch(0% 0 0 / 0.07), 0 20px 48px oklch(0% 0 0 / 0.08)",
         }}
       >
@@ -45,78 +46,66 @@ function PlaceCard() {
           </span>
         </div>
 
-        {/* Active plant */}
-        <div className="border-b border-line px-5 py-3.5">
-          <div className="flex items-start gap-2">
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="mt-0.5 shrink-0 text-sage"
-              aria-hidden="true"
-            >
-              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
-              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
-            </svg>
-            <p className="text-xs leading-relaxed text-body">
-              <span className="font-semibold text-ink">Your plant:</span>{" "}
-              &ldquo;here to think out loud and meet curious people&rdquo;
+        {/* Café photo with caption — the "inside the place" view */}
+        <div
+          className="relative h-44 w-full overflow-hidden"
+          style={{ background: "linear-gradient(135deg, oklch(42% 0.06 55), oklch(28% 0.04 50))" }}
+        >
+          {/* Drop a famous-café photo at public/cafe.jpg — gradient shows until then */}
+          <div
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url(/cafe.jpg)" }}
+            role="img"
+            aria-label="Narrative Coffee interior"
+          />
+          {/* Caption overlay */}
+          <div
+            className="absolute inset-x-0 bottom-0 px-4 pb-3 pt-8"
+            style={{ background: "linear-gradient(to top, oklch(0% 0 0 / 0.6), transparent)" }}
+          >
+            <p className="text-[13px] font-semibold text-white">
+              The window corner, 8am
             </p>
+            <p className="text-[11px] text-white/75">📍 Narrative Coffee · posted by Maya</p>
           </div>
+
+          {/* Sticky note stuck ON the photo — draggable within the card */}
+          <DraggableNote
+            rotate={5}
+            className="absolute right-3 top-3 w-28 rounded-lg p-2.5"
+            style={{
+              background: "var(--note-lemon)",
+              boxShadow: "0 2px 8px oklch(0% 0 0 / 0.2)",
+            }}
+          >
+            <p className="text-[10px] font-semibold leading-snug" style={{ color: "var(--note-lemon-ink)" }}>
+              Best oat latte in town ✨
+            </p>
+          </DraggableNote>
         </div>
 
-        {/* AI matches */}
-        <div className="px-5 py-4">
-          <p className="mb-3 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-muted">
-            <span aria-hidden="true">✨</span> Woozly AI matches
+        {/* Notes strip — what the place's wall holds */}
+        <div className="flex items-center gap-2 border-t border-line px-5 py-3.5">
+          <span className="text-sm">💬</span>
+          <p className="text-xs text-muted">
+            <span className="font-semibold text-ink">5 notes</span> on this place&apos;s wall
           </p>
-
-          <div className="space-y-2">
-            {[
-              { initial: "M", name: "Maya", intent: "here to meet new people", pct: 94, bg: "var(--accent-pale)", fg: "var(--accent)" },
-              { initial: "J", name: "Jonas", intent: "deep work, open to ideas", pct: 81, bg: "var(--sage-light)", fg: "var(--sage)" },
-              { initial: "A", name: "Aliya", intent: "reading & slow conversation", pct: 77, bg: "oklch(93% 0.04 50)", fg: "oklch(38% 0.1 50)" },
-            ].map((p) => (
-              <div
-                key={p.name}
-                className="flex items-center gap-2.5 rounded-xl px-3 py-2.5 transition-colors hover:bg-surface-2"
-              >
-                <span
-                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-display text-xs font-semibold"
-                  style={{ background: p.bg, color: p.fg }}
-                >
-                  {p.initial}
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium text-ink">{p.name}</p>
-                  <p className="truncate text-[11px] text-muted">{p.intent}</p>
-                </div>
-                <span
-                  className="shrink-0 rounded-full px-2 py-0.5 text-[11px] font-bold"
-                  style={{ background: p.bg, color: p.fg }}
-                >
-                  {p.pct}%
-                </span>
-              </div>
+          <span className="ml-auto flex -space-x-1.5">
+            {["var(--note-peach)", "var(--note-lemon)", "var(--sage-light)"].map((c, i) => (
+              <span key={i} className="h-5 w-5 rounded-md border border-surface" style={{ background: c }} aria-hidden="true" />
             ))}
-          </div>
+          </span>
         </div>
-      </div>
+      </DraggableNote>
 
-      {/* Lemon sticky note — top right */}
-      <div
-        className="anim-float absolute -right-6 top-8 z-30 w-36 rounded-xl p-3"
+      {/* Draggable sticky note — lemon */}
+      <DraggableNote
+        rotate={4}
+        className="absolute -right-6 top-8 z-30 w-36 rounded-xl p-3"
         style={{
-          "--r": "4deg",
           background: "var(--note-lemon)",
-          transform: "rotate(4deg)",
           boxShadow: "0 2px 8px oklch(0% 0 0 / 0.1), 0 8px 20px oklch(0% 0 0 / 0.07)",
-        } as React.CSSProperties}
+        }}
       >
         <p className="text-[11px] font-semibold leading-snug" style={{ color: "var(--note-lemon-ink)" }}>
           ☀️ Morning thoughts welcome
@@ -124,14 +113,22 @@ function PlaceCard() {
         <p className="mt-1.5 text-[10px] opacity-65" style={{ color: "var(--note-lemon-ink)" }}>
           📍 12 min ago
         </p>
-      </div>
+      </DraggableNote>
     </div>
   );
 }
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden">
+    <section
+      className="relative overflow-hidden"
+      style={{
+        backgroundColor: "#F4F3F7",
+        backgroundImage:
+          "radial-gradient(circle, rgba(17,12,34,0.07) 1.3px, transparent 1.3px)",
+        backgroundSize: "26px 26px",
+      }}
+    >
       {/* Ambient glow — top center */}
       <div
         className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[900px] -translate-x-1/2 -translate-y-1/3 rounded-full blur-[140px]"
@@ -143,14 +140,15 @@ export function Hero() {
         {/* Copy */}
         <div className="max-w-[540px]">
           <h1 className="anim-rise font-display text-[clamp(2.4rem,5.5vw,4rem)] font-bold leading-[1.06] tracking-[-0.028em] text-ink">
-            Drop a plant.{" "}
+            Join the place.{" "}
             <span className="text-accent">Find your people.</span>
           </h1>
 
           <p className="anim-rise-1 mt-5 max-w-[52ch] text-[1.05rem] leading-[1.65] text-body">
-            Write your intention for being here — curious conversation, deep work, a
-            book rec. Woozly AI reads who else is at this cafe, bar, or park and
-            tells you who you&apos;d actually click with.
+            Step into any café, bar, or park near you and see who&apos;s actually
+            there. Join <span className="font-semibold text-ink">incognito</span> —
+            look before you leap. Woozly AI surfaces who&apos;s on your wavelength;
+            drop a plant and match when you&apos;re ready.
           </p>
 
           <div className="anim-rise-2 mt-8 flex flex-wrap items-center gap-3">
@@ -172,7 +170,7 @@ export function Hero() {
           <div className="anim-rise-3 mt-10 flex flex-wrap gap-2.5">
             {[
               { dot: true, text: "7 people at Narrative Coffee" },
-              { dot: true, text: "3 plants active" },
+              { dot: false, text: "Join incognito" },
               { dot: false, text: "AI matching live" },
             ].map(({ dot, text }) => (
               <span

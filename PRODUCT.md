@@ -31,11 +31,13 @@ Anti-references: dating app aesthetics (Tinder/Hinge energy), corporate SaaS min
 
 ## Key features (in order of emphasis)
 
-1. **Drop a plant with intention** — pin a sticky note to a real location with your intention (open to conversation, deep work, book recs, etc.). This is the core differentiator.
-2. **Woozly AI match** — AI reads everyone's intentions at the same place and calculates live compatibility %. Not an algorithm deciding who's hot — it finds who you'd actually want to talk to.
-3. **Sticky notes on places** — anyone can leave/discover notes at a place; build connection with the spot itself over time, share notes with friends.
-4. **Events** — host a gathering at the place directly from the app.
-5. **Instagram share** — share your place card or plant to stories.
+1. **Drop a plant with intention** — pin a sticky note to a real location with your intention (open to conversation, deep work, book recs, etc.). This is the core differentiator. Plants live for 48 hours; bloom after 5 waters, wilt in the last 6 hours.
+2. **Two discovery modes** — *People mode*: nearby plants surface as swipe cards; water one (swipe right) to send a chat request. *Place mode*: see every plant on the live map and tap to interact. Both modes use the same 5 km free / 50 km premium radius.
+3. **Woozly AI match** — AI reads everyone's intentions at the same place and calculates live compatibility %. Not an algorithm deciding who's hot — it finds who you'd actually want to talk to.
+4. **Water mechanics** — watering a plant sends a chat request to the plant owner (Sent/Received inbox). Mutual water (both sides watered each other) upgrades the chat to Active immediately. Free: 20 waters/day, 1 super like/day. Premium: 50 waters/day, 5 super likes/day.
+5. **Sticky notes on places** — leave up to 3 notes/day (free) or unlimited (premium) on plants at a place; notes cost 3 waters each.
+6. **Events** — host a gathering at the place directly from the app.
+7. **Instagram share** — share your place card or plant to stories (premium).
 
 ## Design principles
 

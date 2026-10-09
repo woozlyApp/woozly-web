@@ -33,6 +33,9 @@ export function Footer() {
             <a href="/terms" className="transition-colors hover:text-body">
               Terms
             </a>
+            <a href="/community" className="transition-colors hover:text-body">
+              Community
+            </a>
           </div>
         </div>
       </div>
