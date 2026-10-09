@@ -8,7 +8,8 @@ export const APP_STORE_URL = "https://testflight.apple.com/join/woozly";
 // accepts a JSON POST of { email } works.
 export const WAITLIST_ENDPOINT = "https://formspree.io/f/xoejdbwo";
 
-export const CONTACT_EMAIL = "hello@woozlyai.app";
+// Pre-launch contact. Swap to hello@woozlyai.app once that mailbox is live.
+export const CONTACT_EMAIL = "srddev7@gmail.com";
 
 // Flip to true when the app ships. Gates post-launch links (Terms, Community)
 // that aren't needed during the pre-launch waitlist phase.

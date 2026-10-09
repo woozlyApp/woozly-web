@@ -2,7 +2,7 @@ import { LeafMark } from "./LeafMark";
 import { DraggableNote } from "./DraggableNote";
 import { SwipeCardDeck } from "./SwipeCardDeck";
 import { PlaceJoinDemo } from "./PlaceJoinDemo";
-import { INTENTS } from "@/lib/woozly-features";
+import { INTENTS, PLACE_TYPES } from "@/lib/woozly-features";
 
 /* ── Intent chips ── */
 function IntentChips() {
@@ -200,6 +200,27 @@ export function Features() {
           <div className="mb-12 inline-flex items-center gap-2 rounded-full border border-sage/30 bg-white px-4 py-1.5">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="text-sage" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
             <span className="text-xs font-semibold text-sage">Place mode</span>
+          </div>
+
+          {/* Supported place types */}
+          <div className="mb-14">
+            <h2 className="font-display text-[clamp(1.9rem,4vw,2.8rem)] font-bold leading-[1.1] tracking-[-0.025em] text-ink">
+              Join any kind of place near you.
+            </h2>
+            <p className="mt-4 max-w-[52ch] leading-[1.65] text-body">
+              Woozly works wherever people gather. Step into any of these, see who&apos;s there, and join the room.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              {PLACE_TYPES.map((p) => (
+                <span
+                  key={p.label}
+                  className="flex items-center gap-2 rounded-full border border-sage/25 bg-white px-3.5 py-2 text-sm font-medium text-ink"
+                >
+                  <span aria-hidden="true">{p.emoji}</span>
+                  {p.label}
+                </span>
+              ))}
+            </div>
           </div>
 
           {/* Interactive join demo */}

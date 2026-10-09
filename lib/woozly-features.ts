@@ -23,6 +23,19 @@ export const INTENTS = [
   { key: "open",       label: "Open",       emoji: "✨" },
 ] as const;
 
+// Place categories people can join (mirrors the app's supported Google place types).
+export const PLACE_TYPES = [
+  { emoji: "☕", label: "Cafes" },
+  { emoji: "🍴", label: "Restaurants" },
+  { emoji: "🍷", label: "Bars" },
+  { emoji: "🍸", label: "Nightlife" },
+  { emoji: "🌳", label: "Parks" },
+  { emoji: "🏋️", label: "Gyms" },
+  { emoji: "🎬", label: "Cinemas" },
+  { emoji: "🛍️", label: "Shopping" },
+  { emoji: "🛏️", label: "Hotels" },
+] as const;
+
 export const PEOPLE_MATRIX = [
   { feature: "Active plants",          free: "2",         premium: "10"        },
   { feature: "Plant drops / week",     free: "3",         premium: "15"        },
